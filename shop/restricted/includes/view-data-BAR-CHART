@@ -1,0 +1,47 @@
+ 
+<?php
+include ("config/DB_config.php"); 
+ $myName = new Name();
+ if(isset($_SESSION['email']))
+ {
+ $emailing = $_SESSION['email'];
+ }
+ 
+$query = "";
+
+/*
+
+
+SELECT * FROM `data_entry` WHERE 1
+
+
+
+
+`datacategory``title``year`, `shot`
+
+*/
+ 
+ $query =  "SELECT `datacategory`,`title`,`year`, `shot` FROM `data_entry` group by year,`title` ";	
+ $extract_distance = mysqli_query($conn, $query) or die(mysqli_error($conn));
+		$count = mysqli_num_rows($extract_distance);
+    if ($count > 0)
+		  {
+ 	 while ($row_distance=mysqli_fetch_row($extract_distance))
+    {
+  						  	$datacategory =$row_distance[0];
+		 					$title =$row_distance[1];
+							$year =$row_distance[2];
+						   	$shot =$row_distance[3];
+					  	   
+		 
+	 
+}
+ 
+						  
+				 	
+				 
+			 
+					}
+		   
+	 
+?>

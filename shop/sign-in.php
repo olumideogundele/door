@@ -277,16 +277,27 @@ if(isset($_COOKIE['password_me'])){echo $_COOKIE['password_me']; }?>" required  
 				
 				
 				
-				
+				 <div class="form-group">
+											             <?php
+			 
+		 include("restricted/includes/truck-owner-registeration.php");
+			 
+			 ?>
+										</div>
+                                                 
 				
 				
               
               <div class="tab_content" id="tab2" style="display:none;">
                 <form method="post" class="register">
 					
+					    
+					
+					
+					
 					
 					<div class="utf_row_form utf_form_wide_block">
-											<label>Truck Owner Type</label> 
+											<label>Bike Owner Type</label> 
  <select class="" name="type" id="type" required onChange="myFunction()">
 												 <option value='yes'>Corporate</option>
 												   <option value='no'>Individual</option>
@@ -295,37 +306,221 @@ if(isset($_COOKIE['password_me'])){echo $_COOKIE['password_me']; }?>" required  
                     
 					
 					<div id="yes">
-					YES	
+					<form action="" method="post" enctype="multipart/form-data">
+				<div id="">
+					<h2 class="text-primary">Own a Bike?</h2>
+										 
+												<h5 class="font-weight-normal mb-4">Set up your account, absolutely free.</h5>
+                    
+                     <div class="form-group">
+											<label>Bike Owner Type</label> 
+ <select class="form-control select2" name="owner_type" id="owner_type" required>
+												 <option value='1'>Corporate</option>
+												   <option value='2'>Individual</option>
+											</select>
+										</div>
+                    
+                    
+                                                 <div class="form-group">
+														<label>Business Name</label> 
+                                                    
+ <input type="text" id="exampleInputName" name="name" class="form-control input-shadow" placeholder="Bussiness Name" required>
+													</div>  
+                    
+                    <div class="form-group">
+														<label>Email ID</label> 
+                                                    
+ <input type="text" name="email" id="exampleInputEmailId" class="form-control input-shadow" placeholder="Enter Your Email ID" required>
+													</div>   
+                    
+                    <div class="form-group">
+														<label>Business Address</label> 
+                                                    
+  <input type="text" id="exampleInputEmailId" name="address" class="form-control input-shadow" placeholder="Business Address" required>
+													</div>   
+													
+                                                     <div class="form-group">
+														<label>Business Phone Number</label> 
+                                                    
+   <input type="text" id="exampleInputEmailId" name="phone" class="form-control input-shadow" placeholder="Business Phone Number" required>
+													</div>   
+                    
+                     <div class="form-group">
+											<label>State of Operation</label> 
+ <select class="form-control select2"  name="state" id="state" onChange = "call()" required>
+      <option value=''>Select One</option>
+												 <?php
+	 include("restricted/config/DB_config.php");
+	 
+	 
+	 $query =  "SELECT  `state_id`, `name` FROM `states` ORDER BY `name` ASC";	
+ $extract_distance = mysqli_query($conn, $query) or die(mysqli_error($conn));
+		$count = mysqli_num_rows($extract_distance);
+    if ($count > 0)
+		  {
+ 	 while ($row_distance=mysqli_fetch_row($extract_distance))
+    {
+  						  $id=$row_distance[0];
+		  $name=$row_distance[1];
+		
+	 
+					 
+					  
+					  
+				echo '<option value='.$id.'>'.$name.'</option>';	
+				
+				  
+	}
+	
+		  }
+	 
+	 
+	 ?>
+											</select>
+										</div>
+                    
+                    
+                                 <div  id="response">       
+                                         
+	 </div>                      
+                <!--  <div class="form-group">
+														<label>Year of Incorporation</label> 
+                                                    
+   <input type="text" id="exampleInputEmailId" name="year" class="form-control input-shadow" placeholder="2001" required>
+													</div> -->               
+                    
+                     <div class="form-group">
+														<label>Number Of Bikes Owned</label> 
+                                                    
+   <input type="number" id="exampleInputEmailId" name="number" class="form-control input-shadow" placeholder="Number Of Bikes Owned" required>
+													</div> 
+                    
+                    
+                    
+                     
+                
+                    
+                    <div class=""> 
+                    <div class="checkboxes fl_left">
+                      <input type="checkbox" checked="" name="agree" required>
+                      <label>I Agree With Terms & Conditions</label>
+                    </div>
+                  </div>
+					
+					
+						<input type="submit" class="button border fw margin-top-10" name="validate" value="Sign Up" />
+                     
+					
+				  
+                    
+                    
+                                                        </div> 
+                                                    </form>	
 					</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 						<div id="no">
-					NO	
+							
+							<h2 class="text-primary">Need a Courier?</h2>
+												<h5 class="font-weight-normal mb-4">Set up your account, absolutely free.</h5>
+												 
+					<form action="" method="post" enctype="multipart/form-data">
+				<div id="">
+                                               
+                                                    
+                                 <div class="form-group">
+														<label>Full Name</label> 
+                                     
+                                     
+                                    <input type="text" id="exampleInputName" name="name" class="form-control input-shadow" placeholder="Full Name" required>
+													</div>   <div class="form-group">
+														<label>Email ID</label> 
+                                      
+                                  <input type="text" name="email" id="exampleInputEmailId" class="form-control input-shadow" placeholder="Enter Your Email ID" required>
+													</div>   
+                    
+                    
+                    <div class="form-group">
+														<label>Phone Number</label> 
+                                     
+                                 <input type="text" id="exampleInputEmailId" name="phone" class="form-control input-shadow" placeholder="Phone Number" required>
+                    </div>
+                    
+                    <div class="form-group">
+											<label>State of Operation</label> 
+ <select class="form-control select2"  name="state" id="state" required  onChange = "call()">
+      <option value=''>Select One</option>
+												 <?php
+	 include("restricted/config/DB_config.php");
+	 
+	 
+	 $query =  "SELECT  `state_id`, `name` FROM `states` ORDER BY `name` ASC";	
+ $extract_distance = mysqli_query($conn, $query) or die(mysqli_error($conn));
+		$count = mysqli_num_rows($extract_distance);
+    if ($count > 0)
+		  {
+ 	 while ($row_distance=mysqli_fetch_row($extract_distance))
+    {
+  						  $id=$row_distance[0];
+		  $name=$row_distance[1];
+		
+	 
+					 
+					  
+					  
+				echo '<option value='.$id.'>'.$name.'</option>';	
+				
+				  
+	}
+	
+		  }
+	 
+	 
+	 ?>
+											</select>
+										</div>
+                    
+                    
+                                   <div  id="response">       
+                                         
+	 </div>     
+                    
+                    
+													     
+			   <div class=""> 
+                    <div class="checkboxes fl_left">
+                      <input type="checkbox" checked="" name="agree" required>
+                      <label>I Agree With Terms & Conditions</label>
+                    </div>
+                  </div>
+			 
+				<input type="submit" class="button border fw margin-top-10" name="validated" value="Sign Up" />
+			 
+			  
+			           
+                                                    
+                                                </div> 
+                                                    </form>	
 					</div>
 					
 					
 					
 					
 					
-                  <p class="utf_row_form utf_form_wide_block">
-                    <label for="username2">
-                      <input type="text" class="input-text" name="username" id="username2" value="" placeholder="Username" />
-                    </label>
-                  </p>
-                  <p class="utf_row_form utf_form_wide_block">
-                    <label for="email2">
-                      <input type="text" class="input-text" name="email" id="email2" value="" placeholder="Email" />
-                    </label>
-                  </p>
-                  <p class="utf_row_form utf_form_wide_block">
-                    <label for="password1">
-                      <input class="input-text" type="password" name="password1" id="password1" placeholder="Password" />
-                    </label>
-                  </p>
-                  <p class="utf_row_form utf_form_wide_block">
-                    <label for="password2">
-                      <input class="input-text" type="password" name="password2" id="password2" placeholder="Confirm Password" />
-                    </label>
-                  </p>
-                  <input type="submit" class="button border fw margin-top-10" name="register" value="Register" />
+                 
                 </form>
               </div>
             </div>

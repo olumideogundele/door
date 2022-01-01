@@ -12,7 +12,7 @@ include("restricted/config/DB_config.php");
 include("restricted/includes/view-application-details-general.php");
 include("restricted/includes/class_file.php");
  
- include("restricted/includes/SendingSMS.php");
+// include("restricted/includes/SendingSMS.php");
    
 
  $myName = new Name();

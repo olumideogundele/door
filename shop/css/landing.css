@@ -335,7 +335,7 @@ img.img-responsive {
 	transition: all 0.3s linear 0s;
 }
 .landing-demo-title {
-	background-color:#ff2222;
+	background-color:#11CA6D;
 	border-radius: 0 0 3px 3px;
 	color: #fff;
 	border:5px solid rgba(0, 0, 0, 0.1);
@@ -352,7 +352,7 @@ img.img-responsive {
 	text-decoration: none;
 }
 .landing-demo-image::after {
-	background-color: #ff2222;
+	background-color: #11CA6D;
 	border-radius: 50%;
 	color: #fff;
 	content: "+";

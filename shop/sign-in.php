@@ -147,7 +147,13 @@ function myFunction() {
               </div>              
               <div class="switcher-content">
 				  
-				  
+				  <div class="form-group">
+											             <?php
+			 
+		 include("restricted/includes/truck-owner-registeration.php");
+			 
+			 ?>
+										</div>
 				 
         
           <div class="utf_signin_form style_one">
@@ -168,7 +174,8 @@ function myFunction() {
 					
 					
 					<div class="form-group">
-						  
+						   
+                                                 
 						<?php 
                                                               
 include("restricted/includes/login_process_2.php");
@@ -250,7 +257,7 @@ Please try again.
 					
 					<p class="utf_row_form utf_form_wide_block">
                     <label for="username">
-                      <input type="text" class="input-text" name="username" id="username" value="" placeholder="Username" value="<?php
+                      <input type="text" class="input-text" name="username" id="username" placeholder="Username" value="<?php
 if(isset($_COOKIE['remember_me'])){echo $_COOKIE['remember_me'];} ?>" autocomplete="off" />
                     </label>
                   </p>
@@ -277,14 +284,7 @@ if(isset($_COOKIE['password_me'])){echo $_COOKIE['password_me']; }?>" required  
 				
 				
 				
-				 <div class="form-group">
-											             <?php
-			 
-		 include("restricted/includes/truck-owner-registeration.php");
-			 
-			 ?>
-										</div>
-                                                 
+				
 				
 				
               
@@ -297,10 +297,10 @@ if(isset($_COOKIE['password_me'])){echo $_COOKIE['password_me']; }?>" required  
 					
 					
 					<div class="utf_row_form utf_form_wide_block">
-											<label>Bike Owner Type</label> 
+											<label>User Type</label> 
  <select class="" name="type" id="type" required onChange="myFunction()">
-												 <option value='yes'>Corporate</option>
-												   <option value='no'>Individual</option>
+												 <option value='yes'>Own a Courier Company?</option>
+ <option value='no'>Need Courier Services?</option>
 											</select>
 										</div>
                     
@@ -308,12 +308,12 @@ if(isset($_COOKIE['password_me'])){echo $_COOKIE['password_me']; }?>" required  
 					<div id="yes">
 					<form action="" method="post" enctype="multipart/form-data">
 				<div id="">
-					<h2 class="text-primary">Own a Bike?</h2>
+					<h2 class="text-primary">Own a Courier Company?</h2>
 										 
 												<h5 class="font-weight-normal mb-4">Set up your account, absolutely free.</h5>
                     
                      <div class="form-group">
-											<label>Bike Owner Type</label> 
+											<label>Courier Company Type</label> 
  <select class="form-control select2" name="owner_type" id="owner_type" required>
 												 <option value='1'>Corporate</option>
 												   <option value='2'>Individual</option>
@@ -383,11 +383,11 @@ if(isset($_COOKIE['password_me'])){echo $_COOKIE['password_me']; }?>" required  
                                  <div  id="response">       
                                          
 	 </div>                      
-                <!--  <div class="form-group">
-														<label>Year of Incorporation</label> 
+                <div class="form-group">
+														<label>RC Number (If Coorprate)</label> 
                                                     
-   <input type="text" id="exampleInputEmailId" name="year" class="form-control input-shadow" placeholder="2001" required>
-													</div> -->               
+   <input type="text" id="exampleInputEmailId" name="rc" class="form-control input-shadow" placeholder="RC Number ">
+													</div>              
                     
                      <div class="form-group">
 														<label>Number Of Bikes Owned</label> 
@@ -434,7 +434,7 @@ if(isset($_COOKIE['password_me'])){echo $_COOKIE['password_me']; }?>" required  
 					
 						<div id="no">
 							
-							<h2 class="text-primary">Need a Courier?</h2>
+							<h2 class="text-primary">Need a Courier Service?</h2>
 												<h5 class="font-weight-normal mb-4">Set up your account, absolutely free.</h5>
 												 
 					<form action="" method="post" enctype="multipart/form-data">
@@ -459,44 +459,9 @@ if(isset($_COOKIE['password_me'])){echo $_COOKIE['password_me']; }?>" required  
                                  <input type="text" id="exampleInputEmailId" name="phone" class="form-control input-shadow" placeholder="Phone Number" required>
                     </div>
                     
-                    <div class="form-group">
-											<label>State of Operation</label> 
- <select class="form-control select2"  name="state" id="state" required  onChange = "call()">
-      <option value=''>Select One</option>
-												 <?php
-	 include("restricted/config/DB_config.php");
-	 
-	 
-	 $query =  "SELECT  `state_id`, `name` FROM `states` ORDER BY `name` ASC";	
- $extract_distance = mysqli_query($conn, $query) or die(mysqli_error($conn));
-		$count = mysqli_num_rows($extract_distance);
-    if ($count > 0)
-		  {
- 	 while ($row_distance=mysqli_fetch_row($extract_distance))
-    {
-  						  $id=$row_distance[0];
-		  $name=$row_distance[1];
-		
-	 
-					 
-					  
-					  
-				echo '<option value='.$id.'>'.$name.'</option>';	
-				
-				  
-	}
-	
-		  }
-	 
-	 
-	 ?>
-											</select>
-										</div>
+                     
                     
-                    
-                                   <div  id="response">       
-                                         
-	 </div>     
+                     
                     
                     
 													     

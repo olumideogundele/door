@@ -33,12 +33,12 @@ $link =   base64_decode(strtr($_POST['link'], '-_,', '+/='));
  
 if(strlen($username) == 0 )
 {
-$errinput_arr[] = '<div class="btn btn-danger btn-lg">*Username is a reqiured field</div> - '.$username;
+$errinput_arr[] = '<div class="notification danger closeable margin-bottom-30">*Username is a reqiured field</div> - '.$username;
 $errcatch_flag = true;
 }
 else if(strlen($password) == 0 )
 {
-$errinput_arr[] = '<div class="btn btn-danger btn-lg"> *Password is a reqiured field</div>  ';
+$errinput_arr[] = '<div class="notification danger closeable margin-bottom-30"> *Password is a reqiured field</div>  ';
 $errcatch_flag = true;
 }
  
@@ -211,7 +211,7 @@ setcookie('password_me', $_POST['password'], $year);
             <p><strong>Ooops!</strong>   Invalid login details.  Please try again.</p>
             <a class="close" href="#"></a> 
 		  </div>
-        </div>';	
+        </div></div>';	
 		   
 	  
 	  $query =  "SELECT  `id`, `count_times`, `username`, `status`, `created_date`, `registeredby` FROM `block_users` WHERE  `username` = '$account_number2'";	

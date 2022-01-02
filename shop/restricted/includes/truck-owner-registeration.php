@@ -1,4 +1,5 @@
- <?php
+ 	
+		    <?php
  
  include("restricted/config/DB_config.php");
  
@@ -30,23 +31,56 @@ $agree  =  mysqli_real_escape_string($conn,$_POST['agree']);
 $phone =  mysqli_real_escape_string($conn,$_POST['phone']);
 	 $address=  mysqli_real_escape_string($conn,$_POST['address']);
 	 $owner_type=  mysqli_real_escape_string($conn,$_POST['owner_type']);
+	 $rc=  mysqli_real_escape_string($conn,$_POST['rc']);
+	  
+	  
+	  
+	   $coordinates1 = get_coordinates($address);
+     
+  $lati = "";
+   $longi = "";
+   
+	 
+  $lati = $coordinates1['lat'];
+	$longi = $coordinates1['long'];
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
       
       if(empty($owner_type))
       {
           
-          echo '<div class="alert alert-warning" role="alert">
-		<button aria-label="Close" class="close" data-dismiss="alert" type="button">
-		   <span aria-hidden="true">&times;</span>
-	  </button>
-		<strong>Ooooops!</strong> <a href="restricted/">Important field(s) are empty. <b />Please check and try again.</a>
-	</div>';    
+           
+		     echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Ooooops!</strong> <a href="#">Important field(s) are empty. <b />Please check and try again.</a></p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';	
+		   
+		  
+		  
+		  
+		  
+		  
+		  
+		  
       }
       else
       {
 	  
 	   $account_number = "LM".rand(10, 99).rand(11, 89).rand(10, 99);		
 	 
- $image = basename($_FILES["file"]["name"]);
+/* $image = basename($_FILES["file"]["name"]);
  $git = basename($_FILES["git"]["name"]);
           
  $target_dir = "graphicallity/";
@@ -64,30 +98,26 @@ $git = $target_dir . basename($_FILES["git"]["name"]);
 $logo = $target_dir . basename($_FILES["file"]["name"]);
  
 		 
-	 }
+	 }*/
   $extract_user = mysqli_query($conn, "SELECT * FROM `user_unit` WHERE `phone` = '$phone' or `email` = '$email'") or die(mysqli_error($conn));
 		$count = mysqli_num_rows($extract_user);
 		 if ($count > 0) {
 	 	  
 			 
-             echo '<div class="alert alert-warning" role="alert">
-		<button aria-label="Close" class="close" data-dismiss="alert" type="button">
-		   <span aria-hidden="true">&times;</span>
-	  </button>
-		<strong>Oops!</strong> Information in the database. <br /> Please check and try again.
-	</div>';
-                        echo '<div class="alert alert-info" role="alert">
-		<button aria-label="Close" class="close" data-dismiss="alert" type="button">
-		   <span aria-hidden="true">&times;</span>
-	  </button>
-		<strong>Ok!</strong> <a href="restricted/"> Click here to login</a>
-	</div>';    
-			 //echo '<div class="btn btn-danger btn-lg">Information in the database. <br /> Please check and try again.</a></div>';
-             
-             
-           
+        
 			 
-			// echo'<a href="restricted/" class="btn btn-info btn-lg">Click here to login.</a><br />';  
+			 
+			   echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification success closeable margin-bottom-30">
+            <p><strong>Oops! </strong> ---- Information in the database. <br /> Please check and try again.</p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';	
+			 
+			 
+			  
 			 
 		 
  
@@ -111,8 +141,8 @@ $salt = sha1(rand());
  
 	 
 	 
-$sql = 	 "INSERT INTO `user_unit`(`usertype`,`name`, `account_number`, `phone`, `email`, `address`, `created_date`, `registeredby`, `status`, `unique_id`, `encrypted_password`, `salt`, `irrelivant`, `ministry`, `designation`, `state`, `lga`,`number`,`file` ,`year`, `truck_owner_type`, `git` ) VALUES
-('2','$name', '$account_number', '$phone', '$email', '$address', '$datetime', '$emailing',2, '$uuid' ,'$encrypted_password','$salt', '$password', '-', 'Truck Owner', '$state', '$lga', '$number', '$logo', '$year', '$owner_type', '$git')";
+$sql = 	 "INSERT INTO `user_unit`(`usertype`,`name`, `account_number`, `phone`, `email`, `address`, `created_date`, `registeredby`, `status`, `unique_id`, `encrypted_password`, `salt`, `irrelivant`, `ministry`, `designation`, `state`, `lga`,`number`,`file` ,`year`, `truck_owner_type`, `git`, `lati`, `longi`, `rc` ) VALUES
+('2','$name', '$account_number', '$phone', '$email', '$address', '$datetime', '$emailing',2, '$uuid' ,'$encrypted_password','$salt', '$password', '-', 'Courier Company ', '$state', '$lga', '$number', '', '$year', '$owner_type', '', '$lati', '$longi', '$rc')";
  
  
  $process = mysqli_query($conn, $sql) or die(mysqli_error($conn));
@@ -161,8 +191,8 @@ $sql = 	 "INSERT INTO `user_unit`(`usertype`,`name`, `account_number`, `phone`, 
 // $link = 'https://'.$_SERVER['HTTP_HOST'].'/opman/document-approval.php?code='.$code;
 	$link = 'https://'.$_SERVER['HTTP_HOST'].'/restricted/all-truck-owners?id='.$account_number;	  
 	  
-   $message = "Truck Owner Registeration. 
-Truck Owner:".$name."
+   $message = "Courier Company  Registeration. 
+Courier Company :".$name."
 Acct. Num. :".$account_number."
 Phone :".$phone."
 Date:".$datetime."
@@ -190,12 +220,12 @@ Click:".$link;
   <div class="email-container" style="max-width: 500px;background: white;margin: 0 auto;overflow: hidden;border-radius: 5px;text-align: center;font-family: sans-serif;"> <img src="http://'.$_SERVER['HTTP_HOST'].'/restricted/'.$inst_logo.'"  alt="'.$inst_logo.'"  width="50px" height="50px" style="max-width: 30%;">
 	   
 	    <h3 style="5px;font-size: 2.0em;">Hi '.$name123.'...,   </h3>
-    <span style="padding: 20px;font-size: 1.3em;">Truck Owner Registeration needs approval. </span><br>
+    <span style="padding: 20px;font-size: 1.3em;">Courier Company  Registeration needs approval. </span><br>
 	   
  
-	 <span style="padding: 20px;font-size: 1.5em;"> Truck Owner Name: <strong> '.$name.'</strong> </span>
+	 <span style="padding: 20px;font-size: 1.5em;"> Courier Company  Name: <strong> '.$name.'</strong> </span>
 	 <span style="padding: 20px;font-size: 1.5em;"> Account Number: <strong> '.$account_number.'</strong> </span>
-	 <span style="padding: 20px;font-size: 1.5em;"> Truck Owner Phone: <strong> '.$phone.'</strong> </span>
+	 <span style="padding: 20px;font-size: 1.5em;"> Courier Company  Phone: <strong> '.$phone.'</strong> </span>
    
     <span> 
 	 <p style="padding: 20px;font-weight: 300;font-size: 1.2em;">Please login to the portal. </p>
@@ -223,7 +253,7 @@ Click:".$link;
 
 
 /*$to      = $email123;             // give to email address 
- $subject  = "Truck Owner Approval";  //change subject of email 
+ $subject  = "Courier Company  Approval";  //change subject of email 
 $newEmail    ="info@loadme.services";                           // give from email address 
 
 // mandatory headers for email message, change if you need something different in your setting. 
@@ -238,7 +268,7 @@ $newEmail    ="info@loadme.services";                           // give from ema
          */
         
          
-          $subject  = "Truck Owner Approval"; 
+          $subject  = "Courier Company  Approval"; 
          $newEmail= "info@loadme.services";
 	                    $headers = "From: " .($newEmail) . "\r\n";
                         $headers .= "Reply-To: ".($newEmail) . "\r\n";
@@ -281,22 +311,18 @@ $sqlnot ="INSERT INTO `notification`(`code`,`title`,`message`, `registeredby`, `
         
         
         
+         echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification success closeable margin-bottom-30">
+            <p><strong>Well-done!</strong> Information Submitted Successfully.</p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div>
+		</div>';	
         
         
-        
-                echo '<div class="alert alert-success" role="alert">
-		<button aria-label="Close" class="close" data-dismiss="alert" type="button">
-		   <span aria-hidden="true">&times;</span>
-	  </button>
-		<strong>Well-done!</strong> Information Submitted Successfully.
-	</div>';
-                        echo '<div class="alert alert-info" role="alert">
-		<button aria-label="Close" class="close" data-dismiss="alert" type="button">
-		   <span aria-hidden="true">&times;</span>
-	  </button>
-		<strong>Ok!</strong>><a href="restricted/"> Click here to login</a>
-	</div>';   
-		
+               
 		
 		
 		  	 
@@ -850,7 +876,7 @@ if(mail($to, $subject, $sendEmail, $headers)){
 		
 		
 		
-		
+		/*
 		
   $target_dir = "graphicallity/";
 $target_file = $target_dir . basename($_FILES["file"]["name"]);
@@ -895,7 +921,7 @@ if ($uploadOk == 0) {
     }
 }
  
-  
+  */
         
         
         
@@ -904,7 +930,7 @@ if ($uploadOk == 0) {
         
         
  	
-		
+	/*	
   $target_dir = "graphicallity/";
 $target_file = $target_dir . basename($_FILES["git"]["name"]);
 $uploadOk = 1;
@@ -951,7 +977,7 @@ if ($uploadOk == 0) {
          
         
         
-        
+        */
         
         
         
@@ -970,9 +996,18 @@ if ($uploadOk == 0) {
   
    
 } else {
-  // echo "Error: " . $sql . "<br>" . $conn->error;
-    $error="Not Inserted,Some Problem occured.";
-echo'<a href="#"class="btn btn-danger btn-lg">Information Not Submitted Successfully.  <br />Please try again later.</a><br />';  
+ 
+ 
+		
+		
+		  echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Ooops!</strong>  Information Not Submitted Successfully.  <br />Please try again later.</p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';	
 
 }
 
@@ -986,7 +1021,19 @@ echo'<a href="#"class="btn btn-danger btn-lg">Information Not Submitted Successf
  }else
   {
 	  
-	   echo '<div class="btn btn-danger btn-lg">Please accept terms and conditions to continue.</a></div>'; 
+	  
+	  
+	  
+	  
+	   echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Ooops!</strong>  Please accept terms and conditions to continue.</p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';	
+
 	  
   }
  }
@@ -1012,7 +1059,7 @@ $number    = 0;
 $agree  =  mysqli_real_escape_string($conn,$_POST['agree']);
 	 $email=  mysqli_real_escape_string($conn,$_POST['email']);
 $phone =  mysqli_real_escape_string($conn,$_POST['phone']);
-      $state  =  mysqli_real_escape_string($conn,$_POST['state']);
+      $state  = "";
 
 $lga  = "";
       
@@ -1026,11 +1073,19 @@ $lga  = "";
 		$count = mysqli_num_rows($extract_user);
 		 if ($count > 0) {
 	 	  
+		 
+	 
 			 
-			 echo '<div class="btn btn-danger btn-lg">Information in the database. <br /> Please check and try again.</a></div><br>'; 	
 			 
-			 echo'<a href="sign-in" class="btn btn-info btn-lg">Click here to login.</a><br />';  
-			 
+		 echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Oops! </strong> Information in the database. <br /> Please check and try again.</p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';	
+			 	 
 		 
  
 		 }else
@@ -1062,12 +1117,19 @@ $sql = 	 "INSERT INTO `user_unit`(`usertype`,`name`, `account_number`, `phone`, 
 	if ($process) {
 		 
  
-  echo '<div class="btn btn-success btn-lg">Information Submitted Successfully.</a></div><br />'; 	
+   
 		
-		
-		echo'<a href="restricted/" class="btn btn-info btn-lg">Click here to login.</a><br />';  
-		
-		
+		  echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification success closeable margin-bottom-30">
+            <p><strong>Yay!</strong>Information Submitted Successfully. Please login to continue.</a></p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div>
+		</div>';
+			 
+		 
 		
 		  	 $phone = $phone;
 		
@@ -1605,9 +1667,18 @@ Please find your credentials below.</div>
   
    
 } else {
-  // echo "Error: " . $sql . "<br>" . $conn->error;
-    $error="Not Inserted,Some Problem occured.";
-echo'<a href="#"class="btn btn-danger btn-lg">Information Not Submitted Successfully.  <br />Please try again later.</a><br />';  
+ 
+ 
+		  echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Ooops!</strong>Information Not Submitted Successfully.  <br />Please try again later.</a></p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div>
+		</div>';
+		
 
 }
 
@@ -1621,10 +1692,51 @@ echo'<a href="#"class="btn btn-danger btn-lg">Information Not Submitted Successf
  }else
   {
 	  
-	   echo '<div class="btn btn-danger btn-lg">Please accept terms and conditions to continue.</a></div>'; 
+ 
+	  
+	  
+	   echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Ooops!</strong>Please accept terms and conditions to continue.</a></p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div>
+		</div>';
+		
 	  
   }
  }
+
+
+
+		   
+function get_coordinates($address)
+{
+    $address = urlencode($address);
+    $url = "https://maps.google.com/maps/api/geocode/json?address=$address&sensor=false&region=Poland&key=AIzaSyAGrHdhUTvfj1Fyl9Dx7_e7RstThaE1uHo";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    $response_a = json_decode($response);
+    $status = $response_a->status;
+
+    if ( $status == 'ZERO_RESULTS' )
+    {
+        return FALSE;
+    }
+    else
+    {
+ $return = array('lat' => $response_a->results[0]->geometry->location->lat, 'long' => $long = $response_a->results[0]->geometry->location->lng);
+        return $return;
+    }
+}
  
 $conn->close();
 	

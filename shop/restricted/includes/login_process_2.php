@@ -2,7 +2,7 @@
   date_default_timezone_set('Africa/Lagos');
 	
 	//require_once('config/DB_config.php');
-$myName = new Name();
+
 	 $today=date("Y-m-d"); 
 
 	 $todaydatefull=  date('Y-m-d G:i:s'); 
@@ -23,7 +23,8 @@ global $error, $success, $error2;
 
 if(isset($_POST['login']))
 {
- 
+	include("restricted/config/DB_config.php");
+ $myName = new Name();
 	
 	$password =   mysqli_real_escape_string($conn, $_POST['password'] );
 $username =   mysqli_real_escape_string($conn, $_POST['username']) ;
@@ -165,6 +166,11 @@ setcookie('password_me', $_POST['password'], $year);
                  
 				 	 echo '<meta http-equiv="Refresh" content="0; url=profile"> ';
 				 
+			 }else if($usertype == 2)
+			 {
+                 
+				 	 echo '<meta http-equiv="Refresh" content="0; url=account/"> ';
+				 
 			 }
              else
 			 {
@@ -183,7 +189,7 @@ setcookie('password_me', $_POST['password'], $year);
 	   else
 	   {
 		   
-		   echo '<meta http-equiv="Refresh" content="0; url=change-pwd"> ';
+		   echo '<meta http-equiv="Refresh" content="0; url=change-password"> ';
 	   }
  
    }
@@ -207,7 +213,7 @@ setcookie('password_me', $_POST['password'], $year);
 	   $error2 = ' 
       <div class="row">
         <div class="col-md-12">
-          <div class="notification success closeable margin-bottom-30">
+          <div class="notification error closeable margin-bottom-30">
             <p><strong>Ooops!</strong>   Invalid login details.  Please try again.</p>
             <a class="close" href="#"></a> 
 		  </div>
@@ -270,7 +276,7 @@ else
 		 $error2 = ' 
       <div class="row">
         <div class="col-md-12">
-          <div class="notification success closeable margin-bottom-30">
+          <div class="notification error closeable margin-bottom-30">
             <p><strong>Ooops!</strong>   Invalid login details.  Please try again.</p>
             <a class="close" href="#"></a> 
 		  </div>
@@ -341,7 +347,7 @@ else
 		    $error2 = ' 
       <div class="row">
         <div class="col-md-12">
-          <div class="notification success closeable margin-bottom-30">
+          <div class="notification error closeable margin-bottom-30">
             <p><strong>Oops!</strong>  Invalid login details.  Please try again.  Your account is blocked.
 				   Please contact the administrator.</p>
             <a class="close" href="#"></a> 

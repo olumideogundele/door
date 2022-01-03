@@ -122,7 +122,7 @@ function myFunction() {
 															//echo "backend-admin/assets/images/logo-icon.png";
 															
 														}
-														?>" class="sign-favicon ht-40" alt="logo"></a>
+														?>" class="sign-favicon ht-40" alt="logo" width="40%"></a>
                                                 
                                                 
                                                 
@@ -188,13 +188,15 @@ if(isset($_GET['login']))
 	{
     
         
-                $error2 = '<div class="alert alert-danger" role="alert">
-		<button aria-label="Close" class="close" data-dismiss="alert" type="button">
-		   <span aria-hidden="true">&times;</span>
-	  </button>
-		<strong>Oops!</strong>Invalid login details. <br>
-Please try again.
-	</div>';
+		
+	 
+          $error2 = ' <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Ooops!</strong>   Invalid login details.  Please try again.</p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';
         
         
 //	$error2 = '<a href="#"  class="alert alert-danger">Please provide valid username and password</a>';
@@ -204,12 +206,19 @@ Please try again.
  
 //		$error2 = '<div class="btn btn-success btn-lg"> You logged out successful. Please wait..</div> ';
 	
-  $error2 = '<div class="alert alert-success" role="alert">
-		<button aria-label="Close" class="close" data-dismiss="alert" type="button">
-		   <span aria-hidden="true">&times;</span>
-	  </button>
-		<strong>Yay!</strong>You logged out successful. Thank You.
-	</div>';
+ 
+	   
+	   
+	   
+	   
+	   
+          $error2 = ' <div class="row">
+        <div class="col-md-12">
+          <div class="notification success closeable margin-bottom-30">
+            <p><strong>Yay!</strong>You logged out successful. Thank You.</p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';
 			  
   echo '<meta http-equiv="Refresh" content="3; url= index"> ';
  
@@ -313,7 +322,7 @@ if(isset($_COOKIE['password_me'])){echo $_COOKIE['password_me']; }?>" required  
 												<h5 class="font-weight-normal mb-4">Set up your account, absolutely free.</h5>
                     
                      <div class="form-group">
-											<label>Courier Company Type</label> 
+											<label>Courier Type</label> 
  <select class="form-control select2" name="owner_type" id="owner_type" required>
 												 <option value='1'>Corporate</option>
 												   <option value='2'>Individual</option>

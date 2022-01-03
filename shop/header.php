@@ -75,7 +75,7 @@ if(isset($_SESSION['email']))
     <div id="header">
       <div class="container"> 
         <div class="utf_left_side"> 
-          <div id="logo"> <a href="index_1.html"><img src="images/logo.png" alt=""></a> </div>
+          <div id="logo"> <a href="index"><img src="<?php echo "restricted/".$inst_logo; ?>" alt="<?php echo $inst_name; ?>" width="100%" style="width: 100%;"></a> </div>
           <div class="mmenu-trigger">
 			<button class="hamburger utfbutton_collapse" type="button">
 				<span class="utf_inner_button_box">

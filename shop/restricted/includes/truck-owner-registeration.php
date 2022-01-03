@@ -110,8 +110,8 @@ $logo = $target_dir . basename($_FILES["file"]["name"]);
 			   echo ' 
       <div class="row">
         <div class="col-md-12">
-          <div class="notification success closeable margin-bottom-30">
-            <p><strong>Oops! </strong> ---- Information in the database. <br /> Please check and try again.</p>
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Oops! </strong> Information in the database. <br /> Please check and try again.</p>
             <a class="close" href="#"></a> 
 		  </div>
         </div></div>';	

@@ -1,33 +1,20 @@
  
 <?php
-include ("config/DB_config.php"); 
+ 
  $myName = new Name();
  if(isset($_SESSION['email']))
  {
  $emailing = $_SESSION['email'];
- }
+
  
 $query = "";
 
 $super = $myName->showName($conn, "SELECT  `super` FROM `user_unit` WHERE `account_number` = '$emailing'"); 
 $right = "";
-if(isset($_GET['id']))
-{
-	
-	$value = $_GET['id'];
-     $value =   base64_decode(strtr($_GET['id'], '-_,', '+/='));
-
- if($super == '1' or $super == 1)
- {
-     
-    
-     
-$query =  "SELECT `id`, `account_number`, `phone`, `email`, `address`, `registeredby`, `status`, `file`, `state`, `lga`, `number` , `year`, `name`, `created_date` FROM `user_unit`   WHERE `id` = '$value'	ORDER BY `id` DESC";
-}
-else
-{
-$query =  "SELECT `id`, `account_number`, `phone`, `email`, `address`, `registeredby`, `status`, `file`, `state`, `lga`, `number` , `year`, `name`, `created_date` FROM `user_unit` WHERE `registeredby` = '$emailing' AND `id` = '$value' ORDER BY `id` DESC";
- }
+ 
+ 
+$query =  "SELECT `id`, `account_number`, `phone`, `email`, `address`, `registeredby`, `status`, `file`, `state`, `lga`, `number` , `year`, `name`, `created_date`, `truck_owner_type` , `rc` FROM `user_unit` WHERE `account_number` = '$emailing' ORDER BY `id` DESC";
+  
   $extract_distance = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$count = mysqli_num_rows($extract_distance);
     if ($count > 0)
@@ -49,6 +36,8 @@ $query =  "SELECT `id`, `account_number`, `phone`, `email`, `address`, `register
                             $year =$row_distance[11];
                             $name =$row_distance[12];
                             $created_date =$row_distance[13];
+                            $truck_owner_type =$row_distance[14];
+                            $rc =$row_distance[15];
                             
          
          $irrelivant = $myName->showName($conn, "SELECT  `irrelivant` FROM `user_unit` WHERE `account_number` = '$account_number'"); 
@@ -70,16 +59,29 @@ else  if($status == 0)
 {
  $statusCSS = "badge badge-danger m-b-5";
 $statusParam = "Pending";
+}       
+		 
+		 
+ 
+$truck_owner_typeParam1 = "";
+if($truck_owner_type == 1)
+{
+ 
+$truck_owner_typeParam1 = "Corporate";
+}			
+else  if($truck_owner_type == 2)
+{
+ 
+$truck_owner_typeParam1 = "Individual";
 }
   
           
-}
- 
+} }
 						  
 		}		 	
 				 
 			 
-					}
+					 
 		   
 	 
 ?>

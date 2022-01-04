@@ -379,6 +379,7 @@ echo '<script>'.$swal.'("Error!", "Something Went Wrong!", "error");</script>';*
                    
 								<li><a class="slide-item" href="application-setup">Application Setup</a></li>
 								<li><a class="slide-item" href="truck-type">Truck Type </a></li>
+								<li><a class="slide-item" href="courier-category">Courier Category </a></li>
 								<li><a class="slide-item" href="truck-search-radius-setup">Truck Searh Radius </a></li>
 								<li><a class="slide-item" href="truck-capacity">Truck Capacity </a></li>
 								<li><a class="slide-item" href="branches">Register Branches </a></li>

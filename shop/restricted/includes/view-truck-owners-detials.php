@@ -13,7 +13,7 @@ $super = $myName->showName($conn, "SELECT  `super` FROM `user_unit` WHERE `accou
 $right = "";
  
  
-$query =  "SELECT `id`, `account_number`, `phone`, `email`, `address`, `registeredby`, `status`, `file`, `state`, `lga`, `number` , `year`, `name`, `created_date`, `truck_owner_type` , `rc` FROM `user_unit` WHERE `account_number` = '$emailing' ORDER BY `id` DESC";
+$query =  "SELECT `id`, `account_number`, `phone`, `email`, `address`, `registeredby`, `status`, `file`, `state`, `lga`, `number` , `year`, `name`, `created_date`, `truck_owner_type` , `rc`, `git`, `notes` FROM `user_unit` WHERE `account_number` = '$emailing' ORDER BY `id` DESC";
   
   $extract_distance = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$count = mysqli_num_rows($extract_distance);
@@ -38,6 +38,8 @@ $query =  "SELECT `id`, `account_number`, `phone`, `email`, `address`, `register
                             $created_date =$row_distance[13];
                             $truck_owner_type =$row_distance[14];
                             $rc =$row_distance[15];
+                            $git =$row_distance[16];
+                            $notes =$row_distance[17];
                             
          
          $irrelivant = $myName->showName($conn, "SELECT  `irrelivant` FROM `user_unit` WHERE `account_number` = '$account_number'"); 

@@ -1,6 +1,6 @@
 <?php	 
  //session_start();
-		 include("config/DB_config.php");
+		 //include("config/DB_config.php");
 	if(isset($_GET["columnValue"]))
 {
 	$id = $_GET["id"];

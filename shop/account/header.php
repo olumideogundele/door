@@ -24,10 +24,15 @@ include("../restricted/includes/class_file.php");
 
 if(isset($_SESSION['email']))
 {
+	
+ 
 	$customer_name = $myName->showName($conn, "SELECT  `name` FROM  `user_unit` WHERE  `account_number` = '$emailing'");
     $customer_phone = $myName->showName($conn, "SELECT  `phone` FROM  `user_unit` WHERE  `account_number` = '$emailing'");
     $customer_email = $myName->showName($conn, "SELECT  `email` FROM  `user_unit` WHERE  `account_number` = '$emailing'");
     $logo = $myName->showName($conn, "SELECT  `file` FROM  `user_unit` WHERE  `account_number` = '$emailing'");
+    $status_my = $myName->showName($conn, "SELECT  `status` FROM  `user_unit` WHERE  `account_number` = '$emailing'");
+    $lati = $myName->showName($conn, "SELECT  `lati` FROM  `user_unit` WHERE  `account_number` = '$emailing'");
+    $longi = $myName->showName($conn, "SELECT  `longi` FROM  `user_unit` WHERE  `account_number` = '$emailing'");
 }
 
 
@@ -61,6 +66,23 @@ if(isset($_SESSION['email']))
 <link rel="stylesheet" href="../css/mmenu.css">
 <link rel="stylesheet" href="../css/perfect-scrollbar.css">
 <link rel="stylesheet" href="../css/style.css" id="colors">
+	
+	
+	
+	
+	<link href="../myasset/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+		<link href="../myasset/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
+		<link href="../myasset/plugins/datatable/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+		<link href="../myasset/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
+		<link href="../myasset/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
+		 
+	
+	
+	
+	
+	
+	
+	
 <!-- Google Font -->
 <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&display=swap&subset=latin-ext,vietnamese" rel="stylesheet"> 
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800" rel="stylesheet" type="text/css">
@@ -84,7 +106,7 @@ if(isset($_SESSION['email']))
 		  </div>
           <nav id="navigation" class="style_one">
             <ul id="responsive">
-              <li><a href="#">Home</a>
+              <li><a href="index">Home</a>
                 <ul>
                   
                 </ul>
@@ -126,14 +148,14 @@ if(isset($_SESSION['email']))
 				</div>
 			</div>
             <div class="utf_user_menu">
-              <div class="utf_user_name"><span><img src="../images/dashboard-avatar.jpg" alt=""></span>Hi, John!</div>
+              <div class="utf_user_name"><span><img src="<?php echo "../graphicallity/".$logo; ?>" alt=""></span>Hi, <?php if(isset($_SESSION['name'])){ echo $_SESSION['name']; } ?>!</div>
               <ul>
-                <li><a href="../dashboard.html"><i class="sl sl-icon-layers"></i> Dashboard</a></li>
-                <li><a href="../dashboard_my_profile.html"><i class="sl sl-icon-user"></i> My Profile</a></li>
+                <li><a href="index"><i class="sl sl-icon-layers"></i> Dashboard</a></li>
+                <li><a href="my_profile"><i class="sl sl-icon-user"></i> My Profile</a></li>
 				<li><a href="../dashboard_my_listing.html"><i class="sl sl-icon-list"></i> My Listing</a></li>
 				<li><a href="../dashboard_messages.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>
 				<li><a href="../dashboard_bookings.html"><i class="sl sl-icon-docs"></i> Booking</a></li>
-                <li><a href="../index_1.html"><i class="sl sl-icon-power"></i> Logout</a></li>
+                <li><a href="../restricted/includes/logout-2.php"><i class="sl sl-icon-power"></i> Logout</a></li>
               </ul>
             </div>
           </div>
@@ -146,12 +168,12 @@ if(isset($_SESSION['email']))
   
   <!-- Dashboard -->
   <div id="dashboard"> 
-    <a href="#" class="utf_dashboard_nav_responsive"><i class="fa fa-reorder"></i> Dashboard Sidebar Menu</a>
+    <a href="index" class="utf_dashboard_nav_responsive"><i class="fa fa-reorder"></i> Dashboard Sidebar Menu</a>
     <div class="utf_dashboard_navigation js-scrollbar">
       <div class="utf_dashboard_navigation_inner_block">
         <ul>
-          <li class="active"><a href="../dashboard.html"><i class="sl sl-icon-layers"></i> Dashboard</a></li>       
-		  <li><a href="../dashboard_add_listing.html"><i class="sl sl-icon-plus"></i> Add Listing</a></li>	          
+          <li class="active"><a href="index"><i class="sl sl-icon-layers"></i> Dashboard</a></li>       
+		  <li><a href="add_listing"><i class="sl sl-icon-plus"></i> Add Listing</a></li>	          
 		  <li>
 			<a href="#"><i class="sl sl-icon-layers"></i> My Listings</a>
 			<ul>
@@ -173,7 +195,7 @@ if(isset($_SESSION['email']))
 		  <li><a href="../dashboard_bookmark.html"><i class="sl sl-icon-heart"></i> Bookmark</a></li>                                    		 
 		  <li><a href="../dashboard_my_profile.html"><i class="sl sl-icon-user"></i> My Profile</a></li>
 		  <li><a href="../dashboard_change_password.html"><i class="sl sl-icon-key"></i> Change Password</a></li>
-          <li><a href="../index_1.html"><i class="sl sl-icon-power"></i> Logout</a></li>
+          <li><a href="../restricted/includes/logout-2.php"><i class="sl sl-icon-power"></i> Logout</a></li>
         </ul>
       </div>
     </div>

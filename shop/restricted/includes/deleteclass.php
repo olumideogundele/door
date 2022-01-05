@@ -1,6 +1,6 @@
 <?php	 
  
-		 include("config/DB_config.php");
+		 //include("config/DB_config.php");
 	if(isset($_GET["del"]))
 {
 	$id = $_GET["del"];

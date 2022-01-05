@@ -74,7 +74,7 @@ include("../restricted/includes/view-truck-owners-detials.php");
 					</div>
 					<div class="col-md-12">
 						<label>Address</label>
-						<textarea name="notes" cols="30" rows="10"><?php echo $address; ?></textarea>
+						<textarea name="address" cols="30" rows="10"><?php echo $address; ?></textarea>
 					</div>
 					
 					
@@ -153,6 +153,9 @@ include("../restricted/includes/view-truck-owners-detials.php");
 					 <div class="col-md-4" id="response">  
 						 <label>LGA</label>
                    <input type="text" class="input-text" value="<?php echo $lga_name; ?>" name="lga">                      
+	 </div>           <div class="col-md-4" id="response">  
+						 <label>Number of Bikes</label>
+                   <input type="number" class="input-text" value="<?php echo $number; ?>" name="number">                      
 	 </div>                      
 					 <div class="col-md-4">  
 						<label>RC Number (If Coorprate)</label> 
@@ -166,12 +169,82 @@ include("../restricted/includes/view-truck-owners-detials.php");
 						<label>Cover Picture</label>						
 						<input type="file" name="git" class="input-text">
 						<input type="hidden" name="logo1" class="input-text" value="<?php echo $file; ?>"> 
-						<input type="hidden" name="id123" class="input-text" value="<?php echo $id123; ?>"> 
+						<input type="hidden" name="git1" class="input-text" value="<?php echo $git ; ?>"> 
+						<input type="hidden" name="id123" class="input-text" value="<?php echo $account_number; ?>"> 
 					</div>	
+					 <div class="col-md-12">
+						<label>Categories</label>		
+					
+					 <?php
+	 include("../restricted/config/DB_config.php");
+	 
+	 
+	 $query =  "SELECT  `id`, `name`, `desc` FROM `courier_category` WHERE `status` =  1 ORDER BY `name` ASC";	
+//	 /$query =  "SELECT  `id`, `category`, `courier`, `status`, `created_date`, `registeredby` FROM `courier_category_sign_up` WHERE `courier` = '$account_number'";	
+ $extract_distance = mysqli_query($conn, $query) or die(mysqli_error($conn));
+		$count = mysqli_num_rows($extract_distance);
+    if ($count > 0)
+		  {
+ 	 while ($row_distance=mysqli_fetch_row($extract_distance))
+    {
+  						  $id=$row_distance[0];
+		  $name_ing=$row_distance[1];
+		  $desc=$row_distance[2];
+		$myName = new Name();
+		   
+		 
+		 
+		  $name = $myName->showName($conn, "SELECT `category` FROM `courier_category_sign_up` WHERE `category` = '$id' AND `courier` = '$account_number'");		
+		 
+		 
+		 
+		if(empty($name))
+		{
+			 echo '  <div class="col-md-2">
 					 
+														 <label>'. $name_ing.'</label>
+														
+														<input type="checkbox"   name="courier_category[]"   value = "'.$id.'" class="myinput large">
+														</div>
+            
+                     
+                    '; 
+			
+		}
+		 else{
+	 echo '  <div class="col-md-2">
+					 
+														 <label>'. $name_ing.'</label>
+														
+														<input type="checkbox" checked  name="courier_category[]"   value = "'.$id.'" class="myinput large">
+														</div>
+            
+                     
+                    ';
+					 
+					  
+					}  
+				 
+				
+				  
+	}
+	
+		  }
+	 
+	 
+	 ?>
+			
+					</div>	
+					
+					
+					
 					<div class="col-md-12">
 						<label>About You</label>
 						<textarea name="notes" cols="30" rows="10">
+							<?php
+							echo $notes;
+							
+							?>
 								  </textarea>
 					</div>
 														
@@ -218,6 +291,76 @@ try {
 })(jQuery);
 </script>
 <!-- Style Switcher -->
+
+
+<style type="text/css">
+
+/* Main Classes */
+.myinput[type="checkbox"]:before{
+    position: relative;
+    display: block;
+    width: 11px;
+    height: 11px;
+    border: 1px solid #808080;
+    content: "";
+    background: #FFF;
+}
+.myinput[type="checkbox"]:after{
+    position: relative;
+    display: block;
+    left: 2px;
+    top: -11px;
+    width: 7px;
+    height: 7px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #B3B3B3 #dcddde #dcddde #B3B3B3;
+    content: "";
+    background-image: linear-gradient(135deg, #B1B6BE 0%,#FFF 100%);
+    background-repeat: no-repeat;
+    background-position:center;
+}
+.myinput[type="checkbox"]:checked:after{
+    background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAQAAABuW59YAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAB2SURBVHjaAGkAlv8A3QDyAP0A/QD+Dam3W+kCAAD8APYAAgTVZaZCGwwA5wr0AvcA+Dh+7UX/x24AqK3Wg/8nt6w4/5q71wAAVP9g/7rTXf9n/+9N+AAAtpJa/zf/S//DhP8H/wAA4gzWj2P4lsf0JP0A/wADAHB0Ngka6UmKAAAAAElFTkSuQmCC'), linear-gradient(135deg, #B1B6BE 0%,#FFF 100%);
+}
+.myinput[type="checkbox"]:disabled:after{
+    -webkit-filter: opacity(0.4);
+}
+.myinput[type="checkbox"]:not(:disabled):checked:hover:after{
+    background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAQAAABuW59YAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAB2SURBVHjaAGkAlv8A3QDyAP0A/QD+Dam3W+kCAAD8APYAAgTVZaZCGwwA5wr0AvcA+Dh+7UX/x24AqK3Wg/8nt6w4/5q71wAAVP9g/7rTXf9n/+9N+AAAtpJa/zf/S//DhP8H/wAA4gzWj2P4lsf0JP0A/wADAHB0Ngka6UmKAAAAAElFTkSuQmCC'), linear-gradient(135deg, #8BB0C2 0%,#FFF 100%);
+}
+.myinput[type="checkbox"]:not(:disabled):hover:after{
+    background-image: linear-gradient(135deg, #8BB0C2 0%,#FFF 100%);  
+    border-color: #85A9BB #92C2DA #92C2DA #85A9BB;  
+}
+.myinput[type="checkbox"]:not(:disabled):hover:before{
+    border-color: #3D7591;
+}
+/* Large checkboxes */
+.myinput.large{
+    height:22px;
+    width: 22px;
+}
+
+.myinput.large[type="checkbox"]:before{
+    width: 20px;
+    height: 20px;
+}
+.myinput.large[type="checkbox"]:after{
+    top: -20px;
+    width: 16px;
+    height: 16px;
+}
+/* Custom checkbox */
+.myinput.large.custom[type="checkbox"]:checked:after{
+background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGHRFWHRBdXRob3IAbWluZWNyYWZ0aW5mby5jb23fZidLAAAAk0lEQVQ4y2P4//8/AyUYwcAD+OzN/oMwshjRBoA0Gr8+DcbIhhBlAEyz+qZZ/7WPryHNAGTNMOxpJvo/w0/uP0kGgGwGaZbrKgfTGnLc/0nyAgiDbEY2BCRGdCDCnA2yGeYVog0Aae5MV4c7Gzk6CRqAbDM2w/EaQEgzXgPQnU2SAcTYjNMAYm3GaQCxNuM0gFwMAPUKd8XyBVDcAAAAAElFTkSuQmCC'), linear-gradient(135deg, #B1B6BE 0%,#FFF 100%);
+}
+.myinput.large.custom[type="checkbox"]:not(:disabled):checked:hover:after{
+background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGHRFWHRBdXRob3IAbWluZWNyYWZ0aW5mby5jb23fZidLAAAAk0lEQVQ4y2P4//8/AyUYwcAD+OzN/oMwshjRBoA0Gr8+DcbIhhBlAEyz+qZZ/7WPryHNAGTNMOxpJvo/w0/uP0kGgGwGaZbrKgfTGnLc/0nyAgiDbEY2BCRGdCDCnA2yGeYVog0Aae5MV4c7Gzk6CRqAbDM2w/EaQEgzXgPQnU2SAcTYjNMAYm3GaQCxNuM0gFwMAPUKd8XyBVDcAAAAAElFTkSuQmCC'), linear-gradient(135deg, #8BB0C2 0%,#FFF 100%);
+}
+
+
+</style>
 <div id="color_switcher_preview">
   <h2>Choose Your Color <a href="#"><i class="fa fa-gear fa-spin (alias)"></i></a></h2>	
 	<div>

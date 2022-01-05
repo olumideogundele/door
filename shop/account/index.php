@@ -37,6 +37,9 @@ include("header.php");
 						
 					}
 		
+		
+		if($status_my == 1)
+					{
 		?>
 		
       
@@ -48,6 +51,28 @@ include("header.php");
 		  </div>
         </div>
       </div>
+		<?php
+			
+		}
+		else
+		{
+			
+			?>
+		
+		 <div class="row">
+        <div class="col-md-12">
+          <div class="notification warning closeable margin-bottom-30">
+            <p>You are currently signed in as <strong><?php echo $customer_name; ?></strong> and your account is pending approval!</p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div>
+      </div>
+		
+		<?php
+			
+			
+		}
+			?>
       
       <div class="row"> 
         <div class="col-lg-2 col-md-6">

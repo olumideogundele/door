@@ -169,6 +169,34 @@ $sql = 	 "INSERT INTO `user_unit`(`usertype`,`name`, `account_number`, `phone`, 
 							 
 		 }
         
+		
+		
+		
+		if(!empty($_POST['courier_category'])) {
+    foreach($_POST['courier_category'] as $check) {
+             
+		
+		 
+		
+		 
+$sql = 	 "INSERT INTO `courier_category_sign_up`(`category`, `courier`, `status`, `created_date`, `registeredby`) VALUES
+( '$check', '$account_number', '1', '$datetime', '$account_number')";
+ 
+ 
+ $process = mysqli_query($conn, $sql) or die(mysqli_error($conn));	
+		
+		
+		
+		
+    }
+}
+		
+		
+		
+		
+		
+		
+		
         
 		  $value = "";
 		 
@@ -184,11 +212,7 @@ $sql = 	 "INSERT INTO `user_unit`(`usertype`,`name`, `account_number`, `phone`, 
   						  	$email123 =$row_distance1[2];
   						  	$account_number123 =$row_distance1[3];
          
-         
-      //   "view-truck?id='.$truck_id.'
-         	     	
-		
-// $link = 'https://'.$_SERVER['HTTP_HOST'].'/opman/document-approval.php?code='.$code;
+ 
 	$link = 'https://'.$_SERVER['HTTP_HOST'].'/restricted/all-truck-owners?id='.$account_number;	  
 	  
    $message = "Courier Company  Registeration. 
@@ -248,25 +272,7 @@ Click:".$link;
 ';	
 		 
 		
-		 
-/*EMAIL TEMPLATE ENDS*/ 
-
-
-/*$to      = $email123;             // give to email address 
- $subject  = "Courier Company  Approval";  //change subject of email 
-$newEmail    ="info@loadme.services";                           // give from email address 
-
-// mandatory headers for email message, change if you need something different in your setting. 
-   $newEmail= "info@loadme.services";
-	                    $headers = "From: " .($newEmail) . "\r\n";
-                        $headers .= "Reply-To: ".($newEmail) . "\r\n";
-                        $headers .= "Return-Path: ".($newEmail) . "\r\n";;
-                        $headers .= "MIME-Version: 1.0\r\n";
-                        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-                        $headers .= "X-Priority: 3\r\n";
-                        $headers .= "X-Mailer: PHP". phpversion() ."\r\n";         
-         */
-        
+ 
          
           $subject  = "Courier Company  Approval"; 
          $newEmail= "info@loadme.services";

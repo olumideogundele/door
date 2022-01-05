@@ -10,7 +10,7 @@ $emailing = "";
  
  if(isset($_POST['validate']))
  {
-  if(isset($_POST['agree']))
+  if(!isset($_POST['agree']))
  {
  if(isset($_SESSION['email']))
  {
@@ -26,14 +26,15 @@ $state  =  mysqli_real_escape_string($conn,$_POST['state']);
 
 $lga  = "";
 $number  =  mysqli_real_escape_string($conn,$_POST['number']);
-$agree  =  mysqli_real_escape_string($conn,$_POST['agree']);
+//$agree  =  mysqli_real_escape_string($conn,$_POST['agree']);
  $email=  mysqli_real_escape_string($conn,$_POST['email']);
 $phone =  mysqli_real_escape_string($conn,$_POST['phone']);
 	 $address=  mysqli_real_escape_string($conn,$_POST['address']);
 	 $owner_type=  mysqli_real_escape_string($conn,$_POST['owner_type']);
 	 $rc=  mysqli_real_escape_string($conn,$_POST['rc']);
-	 $notes=  mysqli_real_escape_string($conn,$_POST['notes']);
+	 $notes=  trim(mysqli_real_escape_string($conn,$_POST['notes']));
 	 $id123=  mysqli_real_escape_string($conn,$_POST['id123']);
+	 $account_number=  mysqli_real_escape_string($conn,$_POST['id123']);
 	  
 	  
 	  
@@ -63,7 +64,7 @@ $phone =  mysqli_real_escape_string($conn,$_POST['phone']);
 	 else
 	 {
  
-$logo =   basename($_FILES["file"]["name"]);
+$logo =   $account_number.basename($_FILES["file"]["name"]);
  
 		 
 	 } 
@@ -79,7 +80,7 @@ $logo =   basename($_FILES["file"]["name"]);
 	 else
 	 {
  
-$git1 =   basename($_FILES["git"]["name"]);
+$git1 =    $account_number.basename($_FILES["git"]["name"]);
  
 		 
 	 } 
@@ -115,12 +116,12 @@ $git1 =   basename($_FILES["git"]["name"]);
       else
       {
 	  
-	   $account_number = "LM".rand(10, 99).rand(11, 89).rand(10, 99);		
+	 
 	 
  
-  $extract_user = mysqli_query($conn, "SELECT * FROM `user_unit` WHERE `phone` != '$id123'") or die(mysqli_error($conn));
+  $extract_user = mysqli_query($conn, "SELECT * FROM `user_unit` WHERE `account_number` = '$id123'") or die(mysqli_error($conn));
 		$count = mysqli_num_rows($extract_user);
-		 if ($count > 0) {
+		 if ($count < 0) {
 	 	  
 			 
         
@@ -149,7 +150,7 @@ $git1 =   basename($_FILES["git"]["name"]);
  
 	 
 	 
-$sql = 	 "UPDATE `user_unit` SET (`usertype`'2',`name`'$name',   `phone`'$phone', `email`'$email', `address`'$address', `created_date`'$datetime', `registeredby`'$emailing', `status`2,`state`'$state', `lga`'$lga',`number`,`file` ,`year`, `truck_owner_type`'$owner_type', `git`, `lati`, `longi`, `rc` , , '$number',  , , '', '$lati', '$longi', '$rc')";
+$sql = 	 "UPDATE `user_unit` SET  `name` = '$name',   `phone` = '$phone', `email` = '$email', `address` = '$address', `created_date` = '$datetime', `registeredby` = '$emailing', `status` = 2,`state` = '$state', `lga` = '$lga',`number` = '$number',`file` = '$logo' , `truck_owner_type` = '$owner_type', `git` = '$git1', `lati` = '$lati', `longi` = '$longi', `rc` = '$rc', `notes` = '$notes' WHERE `account_number` = '$id123'";
  
  
  $process = mysqli_query($conn, $sql) or die(mysqli_error($conn));
@@ -157,17 +158,43 @@ $sql = 	 "UPDATE `user_unit` SET (`usertype`'2',`name`'$name',   `phone`'$phone'
 	if ($process) {
 		 
 
+		
+		
+			
+		if(!empty($_POST['courier_category'])) { 
+			
+	$DELsql = 	mysqli_query($conn,"DELETE FROM `courier_category_sign_up` WHERE `registeredby` = '$id123'") or die("ERROR OCCURED: ".mysqli_error($conn));
+    foreach($_POST['courier_category'] as $check) {
+             
+		
+		
+		
+		 
+$sql = 	 "INSERT INTO `courier_category_sign_up`(`category`, `courier`, `status`, `created_date`, `registeredby`) VALUES
+( '$check', '$account_number', '1', '$datetime', '$account_number')";
+ 
+ 
+ $process = mysqli_query($conn, $sql) or die(mysqli_error($conn));	
+		
+		
+		
+		
+    }
+}
+		
+		
+		
+		
+		
         
      
 		
 		if($phone !="")
 		{
   
+		 
 			
-			 $_SESSION['menu_user'] = $account_number; 
-			
-			
-  $message = "Welcome to ".$inst_name." ".$name."! Username:".$phone.".Password:".$password.". Thank You.";
+  $message = "Hi ".$name."! Your account update is accepted. It will be reviewed. Thank You.";
 
   
   	 $Sending = new SendingSMS(); 
@@ -198,9 +225,9 @@ $sql = 	 "UPDATE `user_unit` SET (`usertype`'2',`name`'$name',   `phone`'$phone'
 // $link = 'https://'.$_SERVER['HTTP_HOST'].'/opman/document-approval.php?code='.$code;
 	$link = 'https://'.$_SERVER['HTTP_HOST'].'/restricted/all-truck-owners?id='.$account_number;	  
 	  
-   $message = "Courier Company  Registeration. 
+   $message = "Courier Company Update. 
 Courier Company :".$name."
-Acct. Num. :".$account_number."
+Acct. Num. :".$id123."
 Phone :".$phone."
 Date:".$datetime."
 Click:".$link;  
@@ -227,7 +254,7 @@ Click:".$link;
   <div class="email-container" style="max-width: 500px;background: white;margin: 0 auto;overflow: hidden;border-radius: 5px;text-align: center;font-family: sans-serif;"> <img src="http://'.$_SERVER['HTTP_HOST'].'/restricted/'.$inst_logo.'"  alt="'.$inst_logo.'"  width="50px" height="50px" style="max-width: 30%;">
 	   
 	    <h3 style="5px;font-size: 2.0em;">Hi '.$name123.'...,   </h3>
-    <span style="padding: 20px;font-size: 1.3em;">Courier Company  Registeration needs approval. </span><br>
+    <span style="padding: 20px;font-size: 1.3em;">Courier Company  Updates needs approval. </span><br>
 	   
  
 	 <span style="padding: 20px;font-size: 1.5em;"> Courier Company  Name: <strong> '.$name.'</strong> </span>
@@ -275,7 +302,7 @@ $newEmail    ="info@loadme.services";                           // give from ema
          */
         
          
-          $subject  = "Courier Company  Approval"; 
+          $subject  = "Courier Company Updated:  Approval"; 
          $newEmail= "info@loadme.services";
 	                    $headers = "From: " .($newEmail) . "\r\n";
                         $headers .= "Reply-To: ".($newEmail) . "\r\n";
@@ -322,7 +349,7 @@ $sqlnot ="INSERT INTO `notification`(`code`,`title`,`message`, `registeredby`, `
       <div class="row">
         <div class="col-md-12">
           <div class="notification success closeable margin-bottom-30">
-            <p><strong>Well-done!</strong> Information Submitted Successfully.</p>
+            <p><strong>Well-done!</strong> Information Updated Successfully.</p>
             <a class="close" href="#"></a> 
 		  </div>
         </div>
@@ -332,10 +359,14 @@ $sqlnot ="INSERT INTO `notification`(`code`,`title`,`message`, `registeredby`, `
                
 		
 		
+		if($image != "")
+		{
+			
+			
 		
 		
-  $target_dir = "graphicallity/";
-$target_file = $target_dir . basename($_FILES["file"]["name"]);
+  $target_dir = "../graphicallity/";
+$target_file = $target_dir . $account_number. basename($_FILES["file"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 // Check if image file is a actual image or fake image
@@ -378,17 +409,17 @@ if ($uploadOk == 0) {
 }
  
   
-        
+     }   
         
         
         //GIT HERE
         
         
-        
- 	
-		
-  $target_dir = "graphicallity/";
-$target_file = $target_dir . basename($_FILES["git"]["name"]);
+      if($git != "")  
+	  {
+		  		
+  $target_dir = "../graphicallity/";
+$target_file = $target_dir . $account_number. basename($_FILES["git"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 // Check if image file is a actual image or fake image
@@ -429,6 +460,10 @@ if ($uploadOk == 0) {
         echo "<div class='btn btn-danger btn-lg'>Sorry, there was an error uploading your file.</div>";
     }
 }
+		  
+	  }
+ 	
+
  
          
         
@@ -585,7 +620,7 @@ if ($uploadOk == 0) {
 	  
 	  
 	  
-	   echo ' 
+	/*   echo ' 
       <div class="row">
         <div class="col-md-12">
           <div class="notification error closeable margin-bottom-30">
@@ -593,7 +628,7 @@ if ($uploadOk == 0) {
             <a class="close" href="#"></a> 
 		  </div>
         </div></div>';	
-
+*/
 	  
   }
  }

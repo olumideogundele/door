@@ -405,14 +405,14 @@ if(isset($_COOKIE['password_me'])){echo $_COOKIE['password_me']; }?>" required  
 													</div> 
                     
                     
-                    <div class="form-group">
+                    <div class="form-group row">
 											<label><strong>Courier Category</strong></label> 
  
 												 <?php
 	 include("restricted/config/DB_config.php");
 	 
 	 
-	 $query =  "SELECT  `state_id`, `name` FROM `states` ORDER BY `name` ASC";	
+	 $query =  "SELECT  `id`, `name`, `desc` FROM `courier_category` WHERE `status` =  1 ORDER BY `name` ASC";	
  $extract_distance = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$count = mysqli_num_rows($extract_distance);
     if ($count > 0)
@@ -421,12 +421,13 @@ if(isset($_COOKIE['password_me'])){echo $_COOKIE['password_me']; }?>" required  
     {
   						  $id=$row_distance[0];
 		  $name=$row_distance[1];
+		  $desc=$row_distance[2];
 		
 	 echo '  <div class="form-group col-md-4">
 					 
-														 <label>'. $name.'</label>
+														 <label>'. $name.' --> '. $desc.'</label>
 														
-														<input type="checkbox"  name="'.$id.'"  class="myinput large">
+														<input type="checkbox"  name="courier_category[]"  value = "'.$id.'" class="myinput large">
 														</div>
             
                      

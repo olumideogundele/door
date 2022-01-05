@@ -1,6 +1,6 @@
  <?php
  
- include("config/DB_config.php");
+ //include("config/DB_config.php");
 $emailing = "";
  
  if(isset($_POST['validate']))
@@ -32,9 +32,16 @@ $emailing  = $_SESSION['email'];
      
      if($added_truck >= $truck_max_number)
      {
-            
+           echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Ooooops!</strong> Maximum Number ('.$truck_max_number.') of Truck for truck owner reached. <br />Please contact admin. </p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';   
          
-  echo'<a href="#"class="btn btn-danger btn-lg">Maximum Number ('.$truck_max_number.') of Truck for truck owner reached. <br />Please contact admin.</a><br />';         
+  //echo'<a href="#"class="notification error">Maximum Number ('.$truck_max_number.') of Truck for truck owner reached. <br />Please contact admin.</a><br />';         
          
      }
      else
@@ -65,20 +72,20 @@ $state = $_POST['state'];
  
      
      
-     $ccaution= $_POST['ccaution'];
-	 $extinguisher = $_POST['extinguisher'];
-	 $jacket= $_POST['jacket'];
-	 $extratyre= $_POST['extratyre'];
+     $ccaution= "";
+	 $extinguisher = "";
+	 $jacket= "";
+	 $extratyre= "";
 	 $hat= $_POST['hat'];
-	 $boot= $_POST['boot'];
+	 $boot= "";
      
      
      
      
      
      
-	 $total_capacity = $_POST['total_capacity'];
-	 $truck_type = $_POST['truck_type'];
+	 $total_capacity ="";
+	 $truck_type = "";
 	 $location = $_POST['location'];
  
 	 
@@ -99,7 +106,21 @@ $state = $_POST['state'];
      {
          
          
-           echo '<div class="btn btn-danger btn-lg">Truck Operating Location Not Retrieved. Please Update The Address</a></div><br />'; 
+           //echo '<div class="notification error">Truck Operating Location Not Retrieved. Please Update The Address</a></div><br />'; 
+		  
+		  
+		   
+		     echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Ooooops!</strong> Truck Operating Location Not Retrieved. Please Update The Address. </p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';  
+		  
+		  
+		  
           
      }
 	 
@@ -115,8 +136,8 @@ $commercial_licence = $target_dir .$randing. basename($_FILES["commercial_licenc
 $git_insurance = $target_dir .$randing. basename($_FILES["git_insurance"]["name"]);
 $front_view_1 = $target_dir .$randing. basename($_FILES["front_view_1"]["name"]);
 $front_view_2 = $target_dir .$randing. basename($_FILES["front_view_2"]["name"]);
-$side_view_1 = $target_dir .$randing. basename($_FILES["side_view_1"]["name"]);
-$side_view_2 = $target_dir .$randing. basename($_FILES["side_view_2"]["name"]);
+$side_view_1 = "";
+$side_view_2 ="";
  
  
 	 
@@ -127,8 +148,16 @@ $side_view_2 = $target_dir .$randing. basename($_FILES["side_view_2"]["name"]);
 		 if ($count > 0) {
 	 	  
 			 
-			  echo '<div class="btn btn-danger btn-lg">Truck Information Already In The Database.<br /> Please Check And Try Again Later.</a></div>'; 	
-			 
+			 // echo '<div class="notification error">Truck Information Already In The Database.<br /> Please Check And Try Again Later.</a></div>'; 	
+			  echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Ooooops!</strong> Bike Information Already In The Database.<br /> Please Check And Try Again Later. </p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';  
+		  
 		 
 		 
  
@@ -145,9 +174,20 @@ $sql = 	 "INSERT INTO `truck`( `account_number`, `truck_brand`, `year`, `truck_p
 	if ($process) {
 		 
  
-        
-         $truck_id = 	strtr(base64_encode($lastId), '+/=', '-_,');
-  echo '<div class="btn btn-success btn-lg">Information Submitted Successfully.</a></div><br />'; 	
+         $last_id = $conn->insert_id;
+         $truck_id = 	strtr(base64_encode($last_id), '+/=', '-_,');
+  //echo '<div class="btn btn-success btn-lg">Information Submitted Successfully.</a></div><br />'; 	
+		
+		 echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification success closeable margin-bottom-30">
+            <p><strong>Yay!</strong>  Information Submitted Successfully. </p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';
+		
+		
   $target_dir = "graphicallity/";
    
         
@@ -161,8 +201,8 @@ $sql = 	 "INSERT INTO `truck`( `account_number`, `truck_brand`, `year`, `truck_p
 		saveImage($target_dir,$randing,$_FILES["git_insurance"]["name"],$_FILES["git_insurance"]["tmp_name"],$_FILES["git_insurance"]["size"]);
 		saveImage($target_dir,$randing,$_FILES["front_view_1"]["name"],$_FILES["front_view_1"]["tmp_name"],$_FILES["front_view_1"]["size"]);
 		saveImage($target_dir,$randing,$_FILES["front_view_2"]["name"],$_FILES["front_view_2"]["tmp_name"],$_FILES["front_view_2"]["size"]);
-		saveImage($target_dir,$randing,$_FILES["side_view_1"]["name"],$_FILES["side_view_1"]["tmp_name"],$_FILES["side_view_1"]["size"]);
-		saveImage($target_dir,$randing,$_FILES["side_view_2"]["name"],$_FILES["side_view_2"]["tmp_name"],$_FILES["side_view_2"]["size"]);
+		//saveImage($target_dir,$randing,$_FILES["side_view_1"]["name"],$_FILES["side_view_1"]["tmp_name"],$_FILES["side_view_1"]["size"]);
+		//saveImage($target_dir,$randing,$_FILES["side_view_2"]["name"],$_FILES["side_view_2"]["tmp_name"],$_FILES["side_view_2"]["size"]);
         
         
         
@@ -198,8 +238,8 @@ $sql = 	 "INSERT INTO `truck`( `account_number`, `truck_brand`, `year`, `truck_p
          
 	$link = 'https://'.$_SERVER['HTTP_HOST'].'/restricted/view-truck?id='.$truck_id;	  
 	   $account_name = $myName->showName($conn, "SELECT  `name` FROM  `user_unit` WHERE  `account_number` = '$emailing'");
-   $message = "Truck Upload. 
-Truck Owner:".$account_name."
+$message = "Bike Upload. 
+Bike Owner:".$account_name."
 Plate :".$truck_plate_number."
 Brand :".$truck_brand."
 Date:".$datetime."
@@ -208,12 +248,12 @@ Click:".$link;
 		 
  
 
-  $senderID = "LoadMe";
+  $senderID = "Shop2Door";
   
  
    $Sending = new SendingSMS(); 
   							 
-							$Sending->smsAPI($phone,"LoadMe",$message);
+							$Sending->smsAPI($phone,"Shop2Door",$message);
 		
 		
 		
@@ -230,9 +270,9 @@ Click:".$link;
     <span style="padding: 20px;font-size: 1.3em;">Truck Uploaded need approval. </span><br>
 	   
  
-	 <span style="padding: 20px;font-size: 1.5em;"> Truck Brand: <strong> '.$truck_brand.'</strong> </span>
-	 <span style="padding: 20px;font-size: 1.5em;"> Truck Plate Number: <strong> '.$truck_plate_number.'</strong> </span>
-	 <span style="padding: 20px;font-size: 1.5em;"> Truck Owner: <strong> '.$account_name.'</strong> </span>
+	 <span style="padding: 20px;font-size: 1.5em;"> Bike Brand: <strong> '.$truck_brand.'</strong> </span>
+	 <span style="padding: 20px;font-size: 1.5em;"> Bike Plate Number: <strong> '.$truck_plate_number.'</strong> </span>
+	 <span style="padding: 20px;font-size: 1.5em;"> Bike Owner: <strong> '.$account_name.'</strong> </span>
 	 
    
     <span> 
@@ -261,7 +301,7 @@ Click:".$link;
 
 
 $to      = $email;             // give to email address 
- $subject  = "Truck Approval";  //change subject of email 
+ $subject  = "Bike Approval";  //change subject of email 
                        // give from email address 
          
          $newEmail= "info@loadme.services";
@@ -332,8 +372,15 @@ $sqlnot ="INSERT INTO `notification`(`code`,`title`,`message`, `registeredby`, `
 } else {
   // echo "Error: " . $sql . "<br>" . $conn->error;
     $error="Not Inserted,Some Problem occured.";
-echo'<a href="#"class="btn btn-danger btn-lg">Information Not Submitted Successfully.  <br />Please try again later.</a><br />';  
-
+//echo'<a href="#"class="notification error">Information Not Submitted Successfully.  <br />Please try again later.</a><br />';  
+ echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Yay!</strong>  Information Not Submitted Successfully.  <br />Please try again later. </p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';
 }
 
  
@@ -384,14 +431,14 @@ $year  = $_POST['year'];
 $state = $_POST['state'];
  
 	 $total_capacity = $_POST['total_capacity'];
-	 $truck_type = $_POST['truck_type'];
+	 $truck_type ="";
    
-     $ccaution= $_POST['ccaution'];
-	 $extinguisher = $_POST['extinguisher'];
+     $ccaution= "";
+	 $extinguisher = "";
 	 $jacket= $_POST['jacket'];
-	 $extratyre= $_POST['extratyre'];
+	 $extratyre= "";
 	 $hat= $_POST['hat'];
-	 $boot= $_POST['boot'];
+	 $boot= "";
      $location = $_POST['location'];
      
 	 
@@ -401,8 +448,8 @@ $commercial_licence_old = $_POST["commercial_licence_old"];
 $git_insurance_old = $_POST["git_insurance_old"];
 $front_view_1_old = $_POST["front_view_1_old"];
 $front_view_2_old = $_POST["front_view_2_old"];
-$side_view_1_old = $_POST["side_view_1_old"];
-$side_view_2_old = $_POST["side_view_2_old"];
+$side_view_1_old = "";
+$side_view_2_old = "";
 	 
     
     
@@ -412,8 +459,8 @@ $commercial_licence = $_FILES["commercial_licence"]["name"];
 $git_insurance = $_FILES["git_insurance"]["name"];
 $front_view_1 = $_FILES["front_view_1"]["name"];
 $front_view_2 = $_FILES["front_view_2"]["name"];
-$side_view_1 = $_FILES["side_view_1"]["name"];
-$side_view_2 = $_FILES["side_view_2"]["name"];
+$side_view_1 = "";
+$side_view_2 = "";
     
     
     if($calibration_chart!="") {
@@ -468,7 +515,7 @@ $front_view_2 = $target_dir .$randing. basename($_FILES["front_view_2"]["name"])
     $front_view_2 = $front_view_2_old;
     }	
 		
-		 if($side_view_1!="") {
+		/* if($side_view_1!="") {
 $side_view_1 = $target_dir .$randing. basename($_FILES["side_view_1"]["name"]);
   saveImage($target_dir,$randing,$_FILES["side_view_1"]["name"],$_FILES["side_view_1"]["tmp_name"],$_FILES["side_view_1"]["size"]);
         
@@ -486,7 +533,7 @@ $side_view_2 = $target_dir .$randing. basename($_FILES["side_view_2"]["name"]);
     $side_view_2 = $side_view_2_old;
     }	
 		
-		
+		*/
  
  
  
@@ -500,7 +547,19 @@ $sql = 	 "UPDATE `truck` SET  `account_number` = '$emailing', `truck_brand` = '$
 	if ($process) {
 		 
  
-  echo '<div class="btn btn-success btn-lg">Information Updated Successfully.</a></div><br />'; 	
+  //echo '<div class="btn btn-success btn-lg">Information Updated Successfully.</a></div><br />'; 	
+		
+		 echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification success closeable margin-bottom-30">
+            <p><strong>Yay!</strong>  Information Updated Successfully. </p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';
+		
+		
+		
   $target_dir = "graphicallity/";
 		
 		
@@ -511,7 +570,19 @@ $sql = 	 "UPDATE `truck` SET  `account_number` = '$emailing', `truck_brand` = '$
 } else {
   // echo "Error: " . $sql . "<br>" . $conn->error;
     $error="Not Inserted,Some Problem occured.";
-echo'<a href="#"class="btn btn-danger btn-lg">Information Not Updated Successfully.  <br />Please try again later.</a><br />';  
+//echo'<a href="#"class="notification error">Information Not Updated Successfully.  <br />Please try again later.</a><br />';  
+		
+		
+		
+		 echo ' 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="notification error closeable margin-bottom-30">
+            <p><strong>Yay!</strong>  Information Not Updated Successfully.  <br />Please try again later. </p>
+            <a class="close" href="#"></a> 
+		  </div>
+        </div></div>';
+		
 
 }
 
@@ -542,35 +613,35 @@ if($imageValue2 != "") {
         //echo "<div class='btn btn-success btn-lg'>File is an image - " . $check["mime"] . ".</div>";
         $uploadOk = 1;
     } else {
-      //  echo "<div class='btn btn-danger btn-lg'>File is not an image.</div>";
+      //  echo "<div class='notification error'>File is not an image.</div>";
         $uploadOk = 0;
     }
 }
 // Check if file already exists
 if (file_exists($target_file)) {
-    echo "<div class='btn btn-danger btn-lg'>Sorry, ".basename($imageValue)." file already exists.</div><br>";
+    echo "<div class='notification error'>Sorry, ".basename($imageValue)." file already exists.</div><br>";
     $uploadOk = 0;
 }
 // Check file size
 if ($size > 50000000) {
-    echo "<div class='btn btn-danger btn-lg'>Sorry, your file  ".basename($imageValue)." is too large.</div><br>";
+    echo "<div class='notification error'>Sorry, your file  ".basename($imageValue)." is too large.</div><br>";
     $uploadOk = 0;
 }
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" ) {
-    echo "<div class='btn btn-danger btn-lg'>Sorry, only JPG, JPEG, PNG & GIF files are allowed.  ".basename($imageValue)."</div><br>";
+    echo "<div class='notification error'>Sorry, only JPG, JPEG, PNG & GIF files are allowed.  ".basename($imageValue)."</div><br>";
     $uploadOk = 0;
 }
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-    echo "<div class='btn btn-danger btn-lg'>Sorry, your file was not uploaded.</div><br>";
+    echo "<div class='notification error'>Sorry, your file was not uploaded.</div><br>";
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($imageValue2, $target_file)) {
        // echo "<div class='btn btn-success btn-lg'>The file ". basename( $imageValue). " has been uploaded.</div>";
     } else {
-        echo "<div class='btn btn-danger btn-lg'>Sorry, there was an error uploading your ". basename( $imageValue). " file.</div><br>";
+        echo "<div class='notification error'>Sorry, there was an error uploading your ". basename( $imageValue). " file.</div><br>";
     }
 }
 	

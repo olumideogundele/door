@@ -67,7 +67,7 @@ else
  
 	  $sql = 	mysqli_query($conn,"UPDATE `block_users` SET `count_times` = '0' WHERE  `username` = '$account_number2'") or die("ERROR OCCURED: ".mysqli_error($conn)); 
 
-$statement = "select * from `user_unit` where (`account_number` = '$username' OR `email` = '$username' OR `phone` = '$username') AND `status` =  1";
+$statement = "select * from `user_unit` where (`account_number` = '$username' OR `email` = '$username' OR `phone` = '$username') AND (`status` =  1 OR `status` =  2)";
 	
 $result = mysqli_query($conn,$statement) or die("ERROR OCCURED: ".mysqli_error($conn));
 

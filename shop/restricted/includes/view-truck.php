@@ -1,6 +1,6 @@
  
 <?php
-include ("config/DB_config.php"); 
+//include ("config/DB_config.php"); 
  $myName = new Name();
  if(isset($_SESSION['email']))
  {
